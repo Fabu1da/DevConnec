@@ -1,0 +1,27 @@
+@backend_HostAddress = http://localhost:5021
+
+GET {{backend_HostAddress}}/hello
+Accept: application/json
+
+###
+POST {{backend_HostAddress}}/login
+Content-Type: application/json
+
+{
+    "email": "admin",
+    "password": "password"
+}
+
+###
+POST {{backend_HostAddress}}/createuser
+Accept: application/json
+Content-Type: application/json
+
+{
+    "email": "test1@example.com",
+    "password": "password123",
+    "name": "Admin User",
+    "role": "Admin",
+    "level": "Level 1", 
+    "dateJoined": "2024-02-25T00:00:00.000Z"
+}
