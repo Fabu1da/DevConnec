@@ -1,0 +1,64 @@
+# Environment files
+.env
+.env.local
+.env.*.local
+/backend/.env
+/backend/.env.local
+/backend/.env.*.local
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+*.vs/
+.vs/
+*.user
+*.sln.iml
+
+
+# Node.js
+node_modules/
+package-lock.json
+yarn.lock
+
+# Prisma
+prisma/migrations/
+
+# .NET
+*.dll
+*.exe
+*.pdb
+.dotnet/
+.nuget/
+
+# Coverage and test results
+coverage/
+.coverage
+*.trx
+
+# User-specific files
+appsettings.*.json
+!appsettings.Development.json
+!appsettings.json
+
+# OS
+Thumbs.db
