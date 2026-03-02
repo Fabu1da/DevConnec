@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Npgsql.EntityFrameworkCore.PostgreSQL;
 using DevConnect.Data;
 using DevConnect.Auth;
+using DevConnect.Users;
 
 
 
@@ -36,10 +37,10 @@ app.MapGet("/hello", () =>
 
 app.MapPost("/CreateUser", async (CreateUserRequest request, AppDbContext db) =>
 {
-    Users users = new Users(db);
-    List<User> createdUsers = await users.createUserAsync(request.Email, request.Password, request.Name, request.Role, request.Level);
+    AuthenticationService authService = new AuthenticationService(db);
+    List<CreateUserResponse> createdUsers = await authService.createUserAsync(request.Email, request.Password, request.Name, request.Role, request.Level);
     
-    return new { message = "User created successfully", users = createdUsers };
+    return new {createdUsers };
 }).WithName("CreateUser");
 
 app.MapPost("/login", async (LoginRequest request, AppDbContext db) =>
@@ -47,17 +48,24 @@ app.MapPost("/login", async (LoginRequest request, AppDbContext db) =>
     string username = request.Email;
     string password = request.Password;
     Console.WriteLine($"Received login request: {username} / {password}");
-    AuthenticationService authService = new AuthenticationService();
-    List<User> isAuthenticated = authService.Authenticate(username, password, db);
-    if (isAuthenticated.Count > 0)
+    AuthenticationService authService = new AuthenticationService(db);
+    List<LoginResult> response = authService.Authenticate(username, password, db);
+    if (response.Count > 0)
     {
-        return Results.Ok(new { message = "Login successful", users = isAuthenticated });
+        return Results.Ok(new { message = "Login successful", users = response });
     }
     else
     {
         return Results.Unauthorized();
     }
 }).WithName("Login");
+
+app.MapGet("/users", async (AppDbContext db) =>
+{
+    var users = new Users(db);
+    List<User> allUsers = await users.GetAllUsersAsync(db);
+    return Results.Ok(allUsers);
+}).WithName("GetAllUsers");
 
 
 app.Run();

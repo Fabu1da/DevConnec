@@ -8,8 +8,8 @@ POST {{backend_HostAddress}}/login
 Content-Type: application/json
 
 {
-    "email": "admin",
-    "password": "password"
+    "email": "test1@example.com",
+    "password": "password123"
 }
 
 ###
@@ -18,7 +18,7 @@ Accept: application/json
 Content-Type: application/json
 
 {
-    "email": "test1@example.com",
+    "email": "test2@example.com",
     "password": "password123",
     "name": "Admin User",
     "role": "Admin",
